@@ -14,6 +14,14 @@ public class Player implements Runnable {
         myTokens=new ArrayList<Token>();
         this.k=k;
     }
+
+    /**
+     * functia run va fi executata in firul de executie ce va fi creat
+     * intr o bucla jucatorul continua sa ceara tokenuri
+     * dupa ficare token primit verifica daca are o progresie si daca are isi incheie executia firului prin exit
+     * daca functia arithmP() intoarece true atunci trmitie numele la board si isi incheie executia
+     * daca primeste null de la board.giveTok() isi incheie executia deoarece board ul nu mai are tokenuri
+     */
     public void run() {
 
         while(true){
@@ -23,19 +31,17 @@ public class Player implements Runnable {
             }
             myTokens.add(tok);
             if(arithmP() ){
-                System.out.println("player: "+name);
-                /*for(Token token:myTokens)
-                {
-                    System.out.print(token.number+" ,");
-                }*/
+                board.giveTok(name);
                 System.exit(1);
             }
-
-
         }
     }
 
-
+    /**
+     * ce ordoneaza elementele din lista
+     *  apoi verifica daca diferenta dintre oricare doua elemente consecutive e accesi peste tot(verifica dc exista ratie)
+     * @return true daca exista progresie aritmetica, false altfel
+     */
     boolean arithmP()
     {
         if(myTokens.size()<3)
@@ -50,6 +56,8 @@ public class Player implements Runnable {
     }
 
 }
+
+
 class NumberComp implements Comparator<Token>
 {
     public int compare(Token m1, Token m2)
